@@ -1,0 +1,6 @@
+.loop{
+    animation: mymove 1s infinite;
+  }
+  @keyframes mymove {
+    100% {transform: rotate(360deg);}
+  }

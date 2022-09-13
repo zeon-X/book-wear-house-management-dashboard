@@ -1,0 +1,32 @@
+[
+    {
+        "id": "slide1",
+        "next": "#slide2",
+        "prev": "#slide5",
+        "img": "https://i.ibb.co/s1q6GZ2/Picture6.png"
+    },
+    {
+        "id": "slide2",
+        "next": "#slide3",
+        "prev": "#slide1",
+        "img": "https://i.ibb.co/k29TbR1/Picture5.png"
+    },
+    {
+        "id": "slide3",
+        "next": "#slide4",
+        "prev": "#slide3",
+        "img": "https://i.ibb.co/ggqptsk/Picture3.png"
+    },
+    {
+        "id": "slide4",
+        "next": "#slide5",
+        "prev": "#slide3",
+        "img": "https://i.ibb.co/zQVGNbV/Picture2.png"
+    },
+    {
+        "id": "slide5",
+        "next": "#slide1",
+        "prev": "#slide4",
+        "img": "https://i.ibb.co/2yqkgwN/Picture1.png"
+    }
+]
