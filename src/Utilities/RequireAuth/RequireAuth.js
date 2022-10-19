@@ -12,7 +12,7 @@ const RequireAuth = ({ children }) => {
   }
 
   if (!user || !localStorage.getItem("user") === "admin") {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to="/login" state={{ from: "/" }} replace />;
   }
   return children;
 };
