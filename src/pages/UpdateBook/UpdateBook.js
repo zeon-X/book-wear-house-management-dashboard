@@ -63,7 +63,7 @@ const UpdateBook = ({ props, toggleFunc, toggleState }) => {
     updatedBy: localStorage.getItem("user"),
     status: updatedStatus,
   };
-  console.log(obj);
+  //console.log(obj);
 
   const handleTitle = (event) => {
     setTitle(event.target.value);

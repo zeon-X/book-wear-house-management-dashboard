@@ -19,57 +19,68 @@ import RequireAuth from "./Utilities/RequireAuth/RequireAuth";
 function App() {
   return (
     <div className="">
-      {/* <Navbar></Navbar> */}
-      <Drawer>
-        <Routes>
-          <Route path="/" element={<LandingPage></LandingPage>}></Route>
-          <Route path="/login" element={<Login></Login>}></Route>
+      <Routes>
+        {/* <Drawer> */}
+        <Route
+          path="/"
+          element={
+            <Drawer>
+              <LandingPage></LandingPage>
+            </Drawer>
+          }
+        ></Route>
+        <Route
+          path="/login"
+          element={
+            <Drawer>
+              <Login></Login>
+            </Drawer>
+          }
+        ></Route>
+        <Route
+          path="/register"
+          element={
+            <Drawer>
+              <Registration></Registration>
+            </Drawer>
+          }
+        ></Route>
+
+        <Route
+          path="/inventory"
+          element={
+            <RequireAuth>
+              <DashboardDrawer></DashboardDrawer>
+            </RequireAuth>
+          }
+        >
+          <Route index element={<DashboardHome />} />
+          <Route path="home" element={<DashboardHome></DashboardHome>}></Route>
+
+          <Route path="book-list" element={<BookList></BookList>}></Route>
+          <Route path="update-book" element={<UpdateBook></UpdateBook>}></Route>
+          <Route path="add-book" element={<AddBook></AddBook>}></Route>
+
           <Route
-            path="/register"
-            element={<Registration></Registration>}
+            path="publisher-list"
+            element={<PublisherList></PublisherList>}
+          ></Route>
+          <Route
+            path="add-publisher"
+            element={<AddPublisher></AddPublisher>}
           ></Route>
 
           <Route
-            path="/inventory"
-            element={
-              <RequireAuth>
-                <DashboardDrawer></DashboardDrawer>
-              </RequireAuth>
-            }
-          >
-            <Route index element={<DashboardHome />} />
-            <Route
-              path="home"
-              element={<DashboardHome></DashboardHome>}
-            ></Route>
-
-            <Route path="book-list" element={<BookList></BookList>}></Route>
-            <Route
-              path="update-book"
-              element={<UpdateBook></UpdateBook>}
-            ></Route>
-            <Route path="add-book" element={<AddBook></AddBook>}></Route>
-
-            <Route
-              path="publisher-list"
-              element={<PublisherList></PublisherList>}
-            ></Route>
-            <Route
-              path="add-publisher"
-              element={<AddPublisher></AddPublisher>}
-            ></Route>
-
-            <Route
-              path="category-list"
-              element={<CategoryList></CategoryList>}
-            ></Route>
-            <Route
-              path="add-category"
-              element={<AddCategory></AddCategory>}
-            ></Route>
-          </Route>
-        </Routes>
-      </Drawer>
+            path="category-list"
+            element={<CategoryList></CategoryList>}
+          ></Route>
+          <Route
+            path="add-category"
+            element={<AddCategory></AddCategory>}
+          ></Route>
+        </Route>
+        {/* </Drawer> */}
+      </Routes>
     </div>
   );
 }

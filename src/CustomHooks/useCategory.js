@@ -12,6 +12,8 @@ const useCategory = () => {
       });
   }, []);
 
+  // console.log(handleHeaderConfig);
+
   return [categoryList, setCategoryList];
 };
 

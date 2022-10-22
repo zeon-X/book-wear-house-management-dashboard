@@ -2,31 +2,25 @@
     {
         "id": "slide1",
         "next": "#slide2",
-        "prev": "#slide5",
-        "img": "https://i.ibb.co/s1q6GZ2/Picture6.png"
+        "prev": "#slide4",
+        "img": "https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
         "id": "slide2",
         "next": "#slide3",
         "prev": "#slide1",
-        "img": "https://i.ibb.co/k29TbR1/Picture5.png"
+        "img": "https://images.pexels.com/photos/276005/pexels-photo-276005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
         "id": "slide3",
         "next": "#slide4",
         "prev": "#slide3",
-        "img": "https://i.ibb.co/ggqptsk/Picture3.png"
+        "img": "https://images.pexels.com/photos/256559/pexels-photo-256559.jpeg"
     },
     {
         "id": "slide4",
-        "next": "#slide5",
-        "prev": "#slide3",
-        "img": "https://i.ibb.co/zQVGNbV/Picture2.png"
-    },
-    {
-        "id": "slide5",
         "next": "#slide1",
-        "prev": "#slide4",
-        "img": "https://i.ibb.co/2yqkgwN/Picture1.png"
+        "prev": "#slide3",
+        "img": "https://images.pexels.com/photos/279222/pexels-photo-279222.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     }
 ]

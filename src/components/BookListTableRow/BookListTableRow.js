@@ -47,7 +47,7 @@ const BookListTableRow = ({ props, dltFunc }) => {
       </td>
 
       <td className="sm:p-0">
-        <div className="grid lg:grid-cols-4 sm:grid-cols-2">
+        <div className="grid lg:grid-cols-3 sm:grid-cols-2">
           {/* Delivered */}
           <button
             className="btn btn-primary btn-circle scale-75 hover:scale-100"
@@ -150,7 +150,7 @@ const BookListTableRow = ({ props, dltFunc }) => {
           </button>
 
           {/* Copy id  */}
-          <CopyToClipboard
+          {/* <CopyToClipboard
             text={_id}
             onCopy={() => {
               this.setState({ copied: true });
@@ -175,7 +175,7 @@ const BookListTableRow = ({ props, dltFunc }) => {
                 />
               </svg>
             </button>
-          </CopyToClipboard>
+          </CopyToClipboard> */}
         </div>
       </td>
       {/* <th>

@@ -171,16 +171,6 @@ const BookList = () => {
               );
             })}
           </tbody>
-
-          <tfoot>
-            <tr>
-              <th></th>
-              <th>Basic Info</th>
-              <th>Description</th>
-              <th>Information</th>
-              <th>Action</th>
-            </tr>
-          </tfoot>
         </table>
       </div>
 
