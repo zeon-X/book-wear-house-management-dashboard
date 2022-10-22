@@ -1,5 +1,4 @@
 import React from "react";
-import "./Navbar.css";
 import logo from "../../assets/logo.jpg";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase.init";

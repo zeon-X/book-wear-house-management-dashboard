@@ -3,21 +3,9 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase.init";
-<<<<<<< HEAD
 import logo1 from "../../assets/logo.jpg";
-=======
-import logo from "../../assets/logo.jpg";
-import logo1 from "../../assets/logo-1.png";
->>>>>>> 5033fad1849d142084861df46b3d8d7773b49882
 
 const DashboardDrawer = () => {
-  const [user, loading, error] = useAuthState(auth);
-  const logout = () => {
-    signOut(auth);
-    localStorage.removeItem("authorization");
-    localStorage.removeItem("status");
-    localStorage.removeItem("user");
-  };
   const navigate = useNavigate();
   const [user, loading, error] = useAuthState(auth);
   const logout = () => {
@@ -50,12 +38,7 @@ const DashboardDrawer = () => {
             </label>
           </div>
           <div className="flex">
-<<<<<<< HEAD
             <p>Isbaah.com Seller Dashboard</p>
-=======
-            <img src={logo} style={{ width: "40px" }} alt="" />
-            <p>Aleeha Seller Dashboard</p>
->>>>>>> 5033fad1849d142084861df46b3d8d7773b49882
           </div>
         </div>
 
@@ -65,7 +48,6 @@ const DashboardDrawer = () => {
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
           {/* <!-- Sidebar content here --> */}
-<<<<<<< HEAD
           <div
             onClick={() => navigate("/")}
             className="flex mb-6 hover:cursor-pointer"
@@ -95,70 +77,21 @@ const DashboardDrawer = () => {
             </li>
             <li className="mb-1">
               <NavLink to="add-publisher">Add Publisher</NavLink>
-=======
-          <div className="flex mb-6">
-            <img src={logo1} style={{ width: "150px" }} alt="" />
-          </div>
-
-          <div>
-            <li className="mb-1">
-              <NavLink to="/">Dashboard Home</NavLink>
->>>>>>> 5033fad1849d142084861df46b3d8d7773b49882
             </li>
           </div>
           <div>
             <li className="mb-1">
-<<<<<<< HEAD
               <NavLink to="category-list">Category List</NavLink>
             </li>
             <li className="mb-1">
-=======
-              <NavLink to="products">Products</NavLink>
-            </li>
-            <li className="mb-1">
-              <NavLink to="add-product">Add Products</NavLink>
-            </li>
-          </div>
-
-          <div>
-            <li className="mb-1">
-              <NavLink to="categories">Categories</NavLink>
-            </li>
-            <li className="mb-1">
->>>>>>> 5033fad1849d142084861df46b3d8d7773b49882
               <NavLink to="add-category">Add Category</NavLink>
             </li>
           </div>
 
-<<<<<<< HEAD
           {user && (
             <div className="mt-6">
               <p className="font-bold text-sm text-gray-500 ml-4 mb-2">
                 User Information
-=======
-          <div>
-            <li className="mb-1">
-              <NavLink to="orders">Orders</NavLink>
-            </li>
-            <li className="mb-1">
-              <NavLink to="add-order">Add Orders</NavLink>
-            </li>
-          </div>
-
-          <div>
-            <li className="mb-1">
-              <NavLink to="user-list">User List</NavLink>
-            </li>
-            <li className="mb-6">
-              <NavLink to="add-user">Add User</NavLink>
-            </li>
-          </div>
-
-          {user && (
-            <div className=" ">
-              <p className="font-bold text-sm text-gray-500 ml-4 mb-2">
-                Seller Information
->>>>>>> 5033fad1849d142084861df46b3d8d7773b49882
               </p>
               <div className="flex border border-gray-200 rounded px-4 py-4">
                 <img src={user?.photoURL} alt="" />
