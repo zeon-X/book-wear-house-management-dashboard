@@ -6,12 +6,16 @@ import "./Account.css";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import Loading from "../../components/Loading/Loading";
 import { handleAccessToken } from "../../Utilities/LocalStorage/ManageLS";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
   const handleSocialSignIn = () => {
     signInWithGoogle();
   };
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -41,6 +45,8 @@ const Login = () => {
             );
           }
         });
+
+      navigate("/");
     }
   }, [user]);
 
@@ -48,7 +54,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col justify-center items-center lg:m-24 sm:m-5">
-      <div className="w-full flex flex-col items-center">
+      {/* <div className="w-full flex flex-col items-center">
         <div class="form-control w-full max-w-xs">
           <label class="label">
             <span class="label-text">Email</span>
@@ -66,7 +72,8 @@ const Login = () => {
         <button class="btn lg:btn-wide sm:w-full my-10">Login</button>
       </div>
 
-      <div class="divider m-5">OR</div>
+      <div class="divider m-5">OR</div> */}
+
       {error && <p>{error.message}</p>}
 
       <div className="mt-10 mb-20">
