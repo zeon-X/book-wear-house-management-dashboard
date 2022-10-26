@@ -77,7 +77,10 @@ const BookList = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#FAFBFE" }} className="w-full h-full p-8">
+    <div
+      style={{ backgroundColor: "#FAFBFE" }}
+      className="w-full h-full p-8 mb-20"
+    >
       <div className="flex">
         <p className="text-xl ml-2">Book-List</p>
       </div>
