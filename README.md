@@ -1,11 +1,5 @@
-![image](https://user-images.githubusercontent.com/73699852/189884323-532e6d48-4246-4696-86cd-7f82cec48aeb.png)
-![image](https://user-images.githubusercontent.com/73699852/189884427-f06a6479-212e-4e9e-8cb0-9f48d938dd1d.png)
-![image](https://user-images.githubusercontent.com/73699852/189884500-b1e32c30-3e49-4a4b-a605-aa91bd0ed3aa.png)
-![image](https://user-images.githubusercontent.com/73699852/189884653-707acd18-cb05-4f8f-9460-aaa6d5b4e557.png)
-![image](https://user-images.githubusercontent.com/73699852/189884726-e731ecbf-e74f-451f-acc4-20c0a539dd4d.png)
-![image](https://user-images.githubusercontent.com/73699852/189884834-7760e7d2-8c60-4c1c-88a3-6a6dffb5d99d.png)
-![image](https://user-images.githubusercontent.com/73699852/189884871-259e801d-b14d-473f-a92c-b2b317fc9ce0.png)
-![image](https://user-images.githubusercontent.com/73699852/189884916-a3e56fa5-c4c1-47d8-b280-cc0e11470a8b.png)
-![image](https://user-images.githubusercontent.com/73699852/189884958-0d64ae09-ea59-4cb1-a71b-9d2c388ade85.png)
-![image](https://user-images.githubusercontent.com/73699852/189885007-1d60395f-349c-4614-ad0a-663e3e2cfacb.png)
-![image](https://user-images.githubusercontent.com/73699852/189885037-a9c07f4d-e5ea-421a-96ac-81f48458add3.png)
+Programming Hero Course Assignment No 11.
+This repo contains the client side of a book wearhouse management system.
+*bookList only shows the books added by the user.
+In the LandingPage there are caousols, Recently added books, manageInventory button. Clicking the manageInventory button will take you to the inventory section. In the inventory section the inventory home was left blank. Rather there are more options like add book, book list, detail book etc. In the book list table there's a btn Details will take you in the details section of the book where you can use deliver btn to reduce book qty by 1 or can restock books.  
+![image](https://user-images.githubusercontent.com/73699852/198156188-3d057861-05bb-41a8-b1db-55c40e79a6c6.png)
