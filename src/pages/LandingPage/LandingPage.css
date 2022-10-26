@@ -1,3 +1,10 @@
 .landingPage_container{
     z-index: 1;
 }
+
+.mobile_section{
+    background-image: url('../../assets/cvr.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

@@ -74,7 +74,7 @@ function App() {
             </RequireAuth>
           }
         >
-          <Route index element={<DashboardHome />} />
+          <Route index element={<BookList />} />
           <Route path="home" element={<DashboardHome></DashboardHome>}></Route>
 
           <Route path="book-list" element={<BookList></BookList>}></Route>

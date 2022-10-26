@@ -26,7 +26,7 @@ const ProductCard = ({ props, manageStockFunc }) => {
       <div class="">
         <p class="font-normal mb-0">BookTitle: {title}</p>
         <p>Publisher: {publisher}</p>
-        <p>Description: {description.split(0, 20)}</p>
+        <p>Description: {description.slice(0, 60)}...</p>
         <p>Price: BDT {base_price}</p>
         <p>Stock: {stoke_quantity}</p>
         <div class="justify-start mt-1">
