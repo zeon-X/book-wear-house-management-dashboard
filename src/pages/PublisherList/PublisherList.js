@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
-import { handleHeaderConfig } from "../../Utilities/HeaderConfig/handleHeaderConfig";
 import PublisherTableRow from "../../components/PublisherTableRow/PublisherTableRow";
+import axiosInstance from "../../Utilities/axiosInstance/axiosInstance";
 
 const PublisherList = () => {
   const [publisherList, setPublisherList] = useState([]);
   const [reload, setReload] = useState(0);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/pub/get", handleHeaderConfig)
-      .then((res) => {
-        // console.log(res.data);
-        setPublisherList(res.data);
-      });
+    axiosInstance.get("pub/get").then((res) => {
+      setPublisherList(res.data);
+    });
   }, [reload]);
 
   // delete publisher
@@ -29,23 +25,18 @@ const PublisherList = () => {
       confirmButtonText: "Delete!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(
-            `http://localhost:5000/api/pub/delete?_id=${_id}`,
-            handleHeaderConfig
-          )
-          .then((res) => {
-            if (res.status === 200) {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: `You have Deleted the Publisher.`,
-                showConfirmButton: true,
-              }).then(() => {
-                setReload(reload + 1);
-              });
-            }
-          });
+        axiosInstance.delete(`pub/delete?_id=${_id}`).then((res) => {
+          if (res.status === 200) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `You have Deleted the Publisher.`,
+              showConfirmButton: true,
+            }).then(() => {
+              setReload(reload + 1);
+            });
+          }
+        });
       }
     });
   };

@@ -7,6 +7,8 @@ import Registration from "./pages/Account/Registration";
 import AddBook from "./pages/AddBook/AddBook";
 import AddCategory from "./pages/AddCategory/AddCategory";
 import AddPublisher from "./pages/AddPublisher/AddPublisher";
+import Blog from "./pages/Blog/Blog";
+import BookDetails from "./pages/BookDetails/BookDetails";
 import BookList from "./pages/BookList/BookList";
 import CategoryList from "./pages/CategoryList/CategoryList";
 import DashboardHome from "./pages/DashboardHome/DashboardHome";
@@ -21,6 +23,14 @@ function App() {
     <div className="">
       <Routes>
         {/* <Drawer> */}
+        <Route
+          path="*"
+          element={
+            <Drawer>
+              <NotFound></NotFound>
+            </Drawer>
+          }
+        ></Route>
         <Route
           path="/"
           element={
@@ -45,6 +55,16 @@ function App() {
             </Drawer>
           }
         ></Route>
+        <Route
+          path="/blog"
+          element={
+            <Drawer>
+              <Blog></Blog>
+            </Drawer>
+          }
+        ></Route>
+
+        {/* </Drawer> */}
 
         <Route
           path="/inventory"
@@ -58,6 +78,10 @@ function App() {
           <Route path="home" element={<DashboardHome></DashboardHome>}></Route>
 
           <Route path="book-list" element={<BookList></BookList>}></Route>
+          <Route
+            path="book-details"
+            element={<BookDetails></BookDetails>}
+          ></Route>
           <Route path="update-book" element={<UpdateBook></UpdateBook>}></Route>
           <Route path="add-book" element={<AddBook></AddBook>}></Route>
 
@@ -78,8 +102,8 @@ function App() {
             path="add-category"
             element={<AddCategory></AddCategory>}
           ></Route>
+          <Route path="*" element={<NotFound></NotFound>}></Route>
         </Route>
-        {/* </Drawer> */}
       </Routes>
     </div>
   );

@@ -1,7 +1,6 @@
-import axios from "axios";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { handleHeaderConfig } from "../../Utilities/HeaderConfig/handleHeaderConfig";
+import axiosInstance from "../../Utilities/axiosInstance/axiosInstance";
 
 const UpdateCategory = ({ props, toggleFunc, toggleState }) => {
   const {
@@ -40,17 +39,13 @@ const UpdateCategory = ({ props, toggleFunc, toggleState }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         //
-        axios
-          .put(
-            `http://localhost:5000/api/category/update?_id=${_id}`,
-            {
-              categoryTitle: updateCategoryName,
-              categoryCode: updateCategoryCode,
-              description: updateDescription,
-              updatedBy: localStorage.getItem("user"),
-            },
-            handleHeaderConfig
-          )
+        axiosInstance
+          .put(`category/update?_id=${_id}`, {
+            categoryTitle: updateCategoryName,
+            categoryCode: updateCategoryCode,
+            description: updateDescription,
+            updatedBy: localStorage.getItem("user"),
+          })
           .then((res) => {
             if (res.status === 200) {
               Swal.fire(

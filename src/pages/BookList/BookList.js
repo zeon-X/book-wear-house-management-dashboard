@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import BookListTableRow from "../../components/BookListTableRow/BookListTableRow";
-import axios from "axios";
 import Swal from "sweetalert2";
-import { handleHeaderConfig } from "../../Utilities/HeaderConfig/handleHeaderConfig";
 import usePublisher from "../../CustomHooks/usePublisher";
 import useCategory from "../../CustomHooks/useCategory";
-import UpdateBook from "../UpdateBook/UpdateBook";
+import { useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase.init";
+import axiosInstance from "../../Utilities/axiosInstance/axiosInstance";
 
 const BookList = () => {
+  const [user, loading, error] = useAuthState(auth);
+
   const [publisherList, setPublisherList] = usePublisher();
   const [categoryList, setCategoryList] = useCategory();
 
@@ -15,6 +18,8 @@ const BookList = () => {
   const [publisher, setPublisher] = useState("");
   const [status, setStatus] = useState("");
   const [reload, setReload] = useState(0);
+
+  const navigate = useNavigate();
 
   const handleCategory = (event) => {
     setCategory(event.target.value);
@@ -29,16 +34,18 @@ const BookList = () => {
   //LOAD BOOKS
   const [bookList, setBookList] = useState([]);
   useEffect(() => {
-    axios
+    axiosInstance
       .get(
-        `http://localhost:5000/api/book/get?category=${category}&pub=${publisher}`,
-        handleHeaderConfig
+        `book/getmine?_id=${user?.email}&category=${category}&pub=${publisher}`
       )
       .then((res) => {
-        // console.log(res.data);
         setBookList(res.data);
       });
   }, [category, publisher, status, reload]);
+
+  const detailsBook = (_id) => {
+    navigate(`/inventory/book-details?_id=${_id}`);
+  };
 
   // DELETE FUNCTION
   const deleteBook = (_id) => {
@@ -52,24 +59,19 @@ const BookList = () => {
       confirmButtonText: "Delete!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(
-            `http://localhost:5000/api/book/delete?_id=${_id}`,
-            handleHeaderConfig
-          )
-          .then((res) => {
-            if (res.status === 200) {
-              // Swal.fire("Deleted!", "You have Deleted the book.", "success")
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: `You have Deleted the book.`,
-                showConfirmButton: true,
-              }).then(() => {
-                setReload(reload + 1);
-              });
-            }
-          });
+        axiosInstance.delete(`book/delete?_id=${_id}`).then((res) => {
+          if (res.status === 200) {
+            // Swal.fire("Deleted!", "You have Deleted the book.", "success")
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `You have Deleted the book.`,
+              showConfirmButton: true,
+            }).then(() => {
+              setReload(reload + 1);
+            });
+          }
+        });
       }
     });
   };
@@ -80,7 +82,7 @@ const BookList = () => {
         <p className="text-xl ml-2">Book-List</p>
       </div>
 
-      <div className=" grid lg:grid-cols-5 sm:grid-cols-2 justify-center items-center lg:gap-x-5 sm:gap-x-2">
+      <div className=" grid lg:grid-cols-4 sm:grid-cols-2 justify-center items-center lg:gap-x-5 sm:gap-x-2">
         <div></div>
         <div></div>
         {/* CATEGORY */}
@@ -130,13 +132,13 @@ const BookList = () => {
           </select>
         </div>
         {/* STATUS */}
-        <div className="form-control w-full max-w-xs">
+        {/* <div className="form-control w-full max-w-xs">
           <label className="label">
             <span className="label-text">Status</span>
           </label>
           <select
             onChange={handleStatus}
-            // value={status}
+            value={status}
             className="select select-bordered"
           >
             <option disabled selected>
@@ -145,7 +147,7 @@ const BookList = () => {
             <option value="Active">Active</option>
             <option value="Dective">Deactive</option>
           </select>
-        </div>
+        </div> */}
       </div>
 
       <div className="overflow-x-auto w-full mt-5 mb-10">
@@ -167,19 +169,29 @@ const BookList = () => {
                   key={x._id}
                   props={x}
                   dltFunc={deleteBook}
+                  detailsFunc={detailsBook}
                 ></BookListTableRow>
               );
             })}
           </tbody>
+          <tfoot>
+            <tr>
+              <th></th>
+              <th>Basic Info</th>
+              <th>Description</th>
+              <th>Information</th>
+              <th>Action</th>
+            </tr>
+          </tfoot>
         </table>
       </div>
 
-      <div className="btn-group mb-15">
+      {/* <div className="btn-group mb-15">
         <button className="btn">1</button>
         <button className="btn btn-active">2</button>
         <button className="btn">3</button>
         <button className="btn">4</button>
-      </div>
+      </div> */}
     </div>
   );
 };

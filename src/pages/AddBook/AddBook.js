@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { handleHeaderConfig } from "../../Utilities/HeaderConfig/handleHeaderConfig";
 import Swal from "sweetalert2";
 import "./AddBook.css";
 import { API_KEY } from "../../Utilities/EnvironmentVariables/env";
 import usePublisher from "../../CustomHooks/usePublisher";
 import useCategory from "../../CustomHooks/useCategory";
+import axiosInstance from "../../Utilities/axiosInstance/axiosInstance";
 
 const AddBook = () => {
   const [publisherList, setPublisherList] = usePublisher();
@@ -89,27 +89,23 @@ const AddBook = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         //
-        axios
-          .post(
-            "http://localhost:5000/api/book/create",
-            {
-              title: title,
-              publisher: publisher,
-              author: author,
-              translated_by: translator,
-              category: category,
-              description: description,
-              base_price: basePrice,
-              sell_price: sellPrice,
-              offer_percentage: offerPercentage,
-              stoke_quantity: stock,
-              book_cover: bookCover,
-              book_cover_thumb: bookCoverThum,
-              updatedBy: localStorage.getItem("user"),
-              status: status,
-            },
-            handleHeaderConfig
-          )
+        axiosInstance
+          .post("book/create", {
+            title: title,
+            publisher: publisher,
+            author: author,
+            translated_by: translator,
+            category: category,
+            description: description,
+            base_price: basePrice,
+            sell_price: sellPrice,
+            offer_percentage: offerPercentage,
+            stoke_quantity: stock,
+            book_cover: bookCover,
+            book_cover_thumb: bookCoverThum,
+            updatedBy: localStorage.getItem("user"),
+            status: status,
+          })
           .then((res) => {
             if (res.status === 201) {
               Swal.fire(

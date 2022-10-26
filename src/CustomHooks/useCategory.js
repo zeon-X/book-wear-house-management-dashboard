@@ -1,18 +1,13 @@
-import { handleHeaderConfig } from "../Utilities/HeaderConfig/handleHeaderConfig";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import axiosInstance from "../Utilities/axiosInstance/axiosInstance";
 
 const useCategory = () => {
   const [categoryList, setCategoryList] = useState([]);
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/category/get", handleHeaderConfig)
-      .then((res) => {
-        setCategoryList(res.data);
-      });
+    axiosInstance.get("category/get").then((res) => {
+      setCategoryList(res.data);
+    });
   }, []);
-
-  // console.log(handleHeaderConfig);
 
   return [categoryList, setCategoryList];
 };

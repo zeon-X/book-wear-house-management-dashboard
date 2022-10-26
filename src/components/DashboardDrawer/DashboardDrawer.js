@@ -67,6 +67,9 @@ const DashboardDrawer = () => {
               <NavLink to="book-list">Book List</NavLink>
             </li>
             <li className="mb-1">
+              <NavLink to="book-details">Book Details</NavLink>
+            </li>
+            <li className="mb-1">
               <NavLink to="add-book">Add Book</NavLink>
             </li>
           </div>
@@ -94,12 +97,20 @@ const DashboardDrawer = () => {
                 User Information
               </p>
               <div className="flex border border-gray-200 rounded px-4 py-4">
-                <img src={user?.photoURL} alt="" />
+                <img
+                  style={{ width: "85px", height: "85px" }}
+                  src={
+                    user?.photoURL
+                      ? user?.photoURL
+                      : "https://cdn-icons-png.flaticon.com/512/2102/2102633.png"
+                  }
+                  alt=""
+                />
                 <div className="ml-4 text-sm ">
                   <p>{user?.displayName}</p>
                   <p>{user?.email.slice(0, 16) + "..."}</p>
-                  <li onClick={logout} className="">
-                    <div className="flex items-center">
+                  <li onClick={logout} className="mt-2 ">
+                    <div className="flex items-center border border-red-500 ">
                       <p className="mr-0 text-red-500 font-bold">Logout</p>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +118,7 @@ const DashboardDrawer = () => {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="red"
-                        className="w-6 h-6"
+                        className="w-5 h-5"
                       >
                         <path
                           strokeLinecap="round"

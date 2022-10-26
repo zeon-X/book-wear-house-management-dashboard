@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { API_KEY } from "../../Utilities/EnvironmentVariables/env";
-import { handleHeaderConfig } from "../../Utilities/HeaderConfig/handleHeaderConfig";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../Utilities/axiosInstance/axiosInstance";
 
 const UpdatePublisher = ({ props, toggleFunc, toggleState }) => {
   const { name, mobile, website, email, address, logo, updatedBy, _id } = props;
@@ -49,20 +49,16 @@ const UpdatePublisher = ({ props, toggleFunc, toggleState }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         //
-        axios
-          .put(
-            `http://localhost:5000/api/pub/update?_id=${_id}`,
-            {
-              name: publisherName,
-              mobile: publisherMobile,
-              website: publisherWebsite,
-              email: publisherEmail,
-              logo: publisherLogo,
-              address: publisherAddress,
-              updatedBy: localStorage.getItem("user"),
-            },
-            handleHeaderConfig
-          )
+        axiosInstance
+          .put(`pub/update?_id=${_id}`, {
+            name: publisherName,
+            mobile: publisherMobile,
+            website: publisherWebsite,
+            email: publisherEmail,
+            logo: publisherLogo,
+            address: publisherAddress,
+            updatedBy: localStorage.getItem("user"),
+          })
           .then((res) => {
             if (res.status === 200) {
               Swal.fire(

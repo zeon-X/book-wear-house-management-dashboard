@@ -1,7 +1,6 @@
-import axios from "axios";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { handleHeaderConfig } from "../../Utilities/HeaderConfig/handleHeaderConfig";
+import axiosInstance from "../../Utilities/axiosInstance/axiosInstance";
 
 const AddCategory = () => {
   const [categoryName, setCategoryName] = useState("");
@@ -39,17 +38,13 @@ const AddCategory = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         //
-        axios
-          .post(
-            "http://localhost:5000/api/category/create",
-            {
-              categoryTitle: categoryName,
-              categoryCode: categoryCode,
-              description: description,
-              updatedBy: localStorage.getItem("user"),
-            },
-            handleHeaderConfig
-          )
+        axiosInstance
+          .post("category/create", {
+            categoryTitle: categoryName,
+            categoryCode: categoryCode,
+            description: description,
+            updatedBy: localStorage.getItem("user"),
+          })
           .then((res) => {
             if (res.status === 201) {
               Swal.fire(
@@ -86,7 +81,7 @@ const AddCategory = () => {
   return (
     <div
       style={{ backgroundColor: "#FAFBFE" }}
-      className="lg:w-full lg:h-full sm:w-auto sm:h-auto p-8"
+      className="w-full lg:h-full  sm:h-auto p-8"
     >
       <div className="">
         <p className="text-xl ml-2 font-medium">Add-Category</p>

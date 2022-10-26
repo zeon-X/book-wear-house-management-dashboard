@@ -63,9 +63,17 @@ const Navbar = () => {
             onClick={() => {
               navigate("/inventory/home");
             }}
-            class="btn mr-2"
+            className="btn mr-2"
           >
             Manage Inventory
+          </button>
+          <button
+            onClick={() => {
+              navigate("/blog");
+            }}
+            className="btn btn-ghost mr-2"
+          >
+            Blogs
           </button>
 
           {/* Logout  */}
@@ -161,32 +169,28 @@ const Navbar = () => {
               <div class="dropdown dropdown-end">
                 <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                   <div class="w-10 rounded-full">
-                    <img src={user?.photoURL} />
+                    <img
+                      src={
+                        user?.photoURL
+                          ? user?.photoURL
+                          : "https://cdn-icons-png.flaticon.com/512/2102/2102633.png"
+                      }
+                    />
                   </div>
                 </label>
 
                 <ul
                   tabindex="0"
-                  class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52  sm:block"
+                  class="menu dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 sm:block"
                 >
                   <li>
-                    <button onClick={logout} class="btn btn-ghost mx-0 flex">
-                      <p className="mr-1">Logout</p>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
-                        />
-                      </svg>
-                    </button>
+                    <div className="ml-4 text-sm flex flex-col">
+                      <p className="text-sm font-bold text-gray-300">
+                        User Infromation
+                      </p>
+                      <p>{user?.displayName}</p>
+                      <p>{user?.email.slice(0, 16) + "..."}</p>
+                    </div>
                   </li>
                 </ul>
               </div>

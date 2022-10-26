@@ -1,29 +1,49 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
 import { auth } from "../../firebase.init";
 import "./Account.css";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+  useSendPasswordResetEmail,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import Loading from "../../components/Loading/Loading";
+import SocialLogin from "./SocialLogin";
+import Swal from "sweetalert2";
 import { handleAccessToken } from "../../Utilities/LocalStorage/ManageLS";
-import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import axiosInstance from "../../Utilities/axiosInstance/axiosInstance";
 
 const Login = () => {
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-  const handleSocialSignIn = () => {
-    signInWithGoogle();
+  const location = useLocation()?.state?.from;
+  let navLoc;
+  if (location === undefined) navLoc = "/";
+  else navLoc = location?.pathname + location?.search;
+  // console.log(navLoc);
+  const navigate = useNavigate();
+  const [msg, setMsg] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleEmail = (event) => {
+    setEmail(event.target.value);
+    setMsg("");
+  };
+  const handlePassword = (event) => {
+    setPassword(event.target.value);
   };
 
-  const navigate = useNavigate();
+  //LOGIN
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
+  const handleLogin = (email, pass) => {
+    if (email == "") setMsg("Provide Email");
+    else if (pass == "") setMsg("Provide Password");
+    else signInWithEmailAndPassword(email, pass);
+  };
 
   useEffect(() => {
     if (user) {
-      // console.log(user.user.email);
-      // console.log(user.user.uid);
-
-      axios
-        .post("http://localhost:5000/api/authFirebase/authentication", {
+      axiosInstance
+        .post("authFirebase/authentication", {
           email: user.user.email,
           userId: user.user.uid,
         })
@@ -32,7 +52,7 @@ const Login = () => {
             Swal.fire({
               position: "center",
               icon: "success",
-              title: `Welcome ${user.user.displayName} Sir!`,
+              title: `Welcome ${user.user.displayName}!`,
               showConfirmButton: true,
               timer: 3000,
             });
@@ -43,53 +63,84 @@ const Login = () => {
               res.data.user_data.status,
               res.data.user_data.email
             );
+            navigate(`${navLoc}`);
           }
         });
-
-      navigate("/");
     }
   }, [user]);
 
-  if (loading) return <Loading></Loading>;
+  //Reset passord
+  const [sendPasswordResetEmail, sending, error1] =
+    useSendPasswordResetEmail(auth);
+
+  const handleResetPassword = async (email) => {
+    if (email == "") setMsg("Provide a valid Email");
+    else await sendPasswordResetEmail(email);
+  };
+
+  // console.log(error1?.message);
+
+  if (loading || sending) return <Loading></Loading>;
 
   return (
     <div className="flex flex-col justify-center items-center lg:m-24 sm:m-5">
-      {/* <div className="w-full flex flex-col items-center">
+      <div className="w-full flex flex-col items-center">
         <div class="form-control w-full max-w-xs">
           <label class="label">
             <span class="label-text">Email</span>
           </label>
-          <input type="text" class="input input-bordered w-full max-w-xs" />
-        </div>
-
-        <div class="form-control w-full max-w-xs">
-          <label class="label">
-            <span class="label-text">Email</span>
-          </label>
-          <input type="text" class="input input-bordered w-full max-w-xs" />
-        </div>
-
-        <button class="btn lg:btn-wide sm:w-full my-10">Login</button>
-      </div>
-
-      <div class="divider m-5">OR</div> */}
-
-      {error && <p>{error.message}</p>}
-
-      <div className="mt-10 mb-20">
-        <button
-          onClick={handleSocialSignIn}
-          class="btn lg:btn-wide my-5 flex sm:w-full "
-        >
-          <p>Sign in with Google</p>
-          <img
-            className="ml-2"
-            style={{ width: "25px" }}
-            src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png"
-            alt=""
+          <input
+            type="email"
+            value={email}
+            onChange={handleEmail}
+            class="input input-bordered w-full max-w-xs"
           />
+        </div>
+
+        <div class="form-control w-full max-w-xs mb-4">
+          <label class="label">
+            <span class="label-text">Password</span>
+          </label>
+          <input
+            type="password"
+            value={password}
+            onChange={handlePassword}
+            class="input input-bordered w-full max-w-xs"
+          />
+        </div>
+        {(error || error1 || msg != "") && (
+          <div className="mt-6">
+            <p className="text-red-500">{msg}</p>
+            <p className="text-red-500">{error?.message}</p>
+            <p className="text-red-500">{error1?.message}</p>
+          </div>
+        )}
+        <button
+          onClick={() => {
+            handleLogin(email, password);
+          }}
+          class="btn btn-wide mt-4 mb-4"
+        >
+          Login
         </button>
+        <div className="text-red-500 text-sm grid grid-cols-2">
+          <p
+            onClick={() => handleResetPassword(email)}
+            className=" hover:cursor-pointer hover:text-red-700 "
+          >
+            Reset Password!
+          </p>
+          <p
+            onClick={() => navigate("/register")}
+            className="hover:cursor-pointer hover:text-red-700 text-right"
+          >
+            Don't Have an Account?
+          </p>
+        </div>
       </div>
+
+      <div class="divider m-5">OR Try</div>
+      <SocialLogin props={navLoc}></SocialLogin>
     </div>
   );
 };

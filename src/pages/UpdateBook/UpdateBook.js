@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import useCategory from "../../CustomHooks/useCategory";
 import usePublisher from "../../CustomHooks/usePublisher";
 import { API_KEY } from "../../Utilities/EnvironmentVariables/env";
-import { handleHeaderConfig } from "../../Utilities/HeaderConfig/handleHeaderConfig";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../Utilities/axiosInstance/axiosInstance";
 
 const UpdateBook = ({ props, toggleFunc, toggleState }) => {
   const {
@@ -112,27 +112,23 @@ const UpdateBook = ({ props, toggleFunc, toggleState }) => {
       confirmButtonText: "Yes!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .put(
-            `http://localhost:5000/api/book/update?_id=${_id}`,
-            {
-              title: updatedTitle,
-              publisher: updatedPublisher,
-              author: updatedAuthor,
-              translated_by: updatedTranslator,
-              category: updatedCategory,
-              description: description,
-              base_price: updatedBasePrice,
-              sell_price: updatedSellPrice,
-              offer_percentage: updatedOfferPercentage,
-              stoke_quantity: updatedStock,
-              book_cover: updatedBookCover,
-              book_cover_thumb: updatedBookCoverThum,
-              updatedBy: localStorage.getItem("user"),
-              status: updatedStatus,
-            },
-            handleHeaderConfig
-          )
+        axiosInstance
+          .put(`book/update?_id=${_id}`, {
+            title: updatedTitle,
+            publisher: updatedPublisher,
+            author: updatedAuthor,
+            translated_by: updatedTranslator,
+            category: updatedCategory,
+            description: description,
+            base_price: updatedBasePrice,
+            sell_price: updatedSellPrice,
+            offer_percentage: updatedOfferPercentage,
+            stoke_quantity: updatedStock,
+            book_cover: updatedBookCover,
+            book_cover_thumb: updatedBookCoverThum,
+            updatedBy: localStorage.getItem("user"),
+            status: updatedStatus,
+          })
           .then((res) => {
             if (res.status === 200) {
               Swal.fire(
@@ -141,6 +137,7 @@ const UpdateBook = ({ props, toggleFunc, toggleState }) => {
                 "success"
               ).then(() => {
                 // handleResetForm();
+                toggleFunc(!toggleState);
                 navigate("/inventory/book-list");
               });
             }
@@ -203,7 +200,7 @@ const UpdateBook = ({ props, toggleFunc, toggleState }) => {
   return (
     <div
       style={{ backgroundColor: "#FAFBFE" }}
-      className="lg:w-full lg:h-full sm:w-auto sm:h-screen  p-8"
+      className="w-full lg:h-full sm:h-screen  p-8"
     >
       <div className="">
         <p className="text-xl ml-2">Update-Book</p>

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { handleHeaderConfig } from "../../Utilities/HeaderConfig/handleHeaderConfig";
 import { API_KEY } from "../../Utilities/EnvironmentVariables/env";
+import axiosInstance from "../../Utilities/axiosInstance/axiosInstance";
 
 const AddPublisher = () => {
   const [publisherName, setpublisherName] = useState("");
@@ -53,20 +53,16 @@ const AddPublisher = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         //
-        axios
-          .post(
-            "http://localhost:5000/api/pub/create",
-            {
-              name: publisherName,
-              mobile: publisherMobile,
-              website: publisherWebsite,
-              email: publisherEmail,
-              logo: publisherLogo,
-              address: publisherAddress,
-              updatedBy: localStorage.getItem("user"),
-            },
-            handleHeaderConfig
-          )
+        axiosInstance
+          .post("pub/create", {
+            name: publisherName,
+            mobile: publisherMobile,
+            website: publisherWebsite,
+            email: publisherEmail,
+            logo: publisherLogo,
+            address: publisherAddress,
+            updatedBy: localStorage.getItem("user"),
+          })
           .then((res) => {
             if (res.status === 201) {
               Swal.fire(
