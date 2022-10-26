@@ -79,13 +79,6 @@ const CategoryList = () => {
           </tfoot>
         </table>
       </div>
-
-      <div className="btn-group mb-15">
-        <button className="btn">1</button>
-        <button className="btn btn-active">2</button>
-        <button className="btn">3</button>
-        <button className="btn">4</button>
-      </div>
     </div>
   );
 };

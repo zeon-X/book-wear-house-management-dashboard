@@ -1,7 +1,6 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { handleHeaderConfig } from "../../Utilities/HeaderConfig/handleHeaderConfig";
+import axiosInstance from "../../Utilities/axiosInstance/axiosInstance";
 import ProductCard from "../ProductCard/ProductCard";
 import "./ProductContainer.css";
 
@@ -10,11 +9,9 @@ const ProductContainer = () => {
   const [bookList, setBookList] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/book/get?limit=6`, handleHeaderConfig)
-      .then((res) => {
-        setBookList(res.data);
-      });
+    axiosInstance.get(`book/get?limit=6`).then((res) => {
+      setBookList(res.data);
+    });
   }, []);
   // console.log(bookList);
   const handleManageStockBtn = (_id) => {
